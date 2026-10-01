@@ -1,7 +1,4 @@
--- =====================================================
 -- JStudio: tabla de reseñas en Supabase
--- Pegar completo en Supabase > SQL Editor > Run
--- =====================================================
 
 create table if not exists public.resenas (
     id        bigint generated always as identity primary key,
@@ -9,7 +6,7 @@ create table if not exists public.resenas (
     puntaje   smallint    not null check (puntaje between 1 and 5),
     texto     text        not null check (char_length(texto) between 5 and 280),
     fecha     timestamptz not null default now(),
-    aprobada  boolean     not null default true   -- cambiar a false para moderar (ver abajo)
+    aprobada  boolean     not null default true  
 );
 
 alter table public.resenas enable row level security;
