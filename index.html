@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JStudio</title>
+    <meta name="description" content="Cartelería personalizada e instalación">
+    <meta property="og:title" content="JStudio">
+    <meta property="og:description" content="Cartelería personalizada e instalación">
+    <meta property="og:image" content="recursos/imagenes/logo-jstudio.webp">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="recursos/imagenes/logo-jstudio.webp">
+    <link rel="stylesheet" href="recursos/css/style.css">
+</head>
+<body>
+    <header class="cabecera">
+        <a class="cabecera__logo" href="#inicio">
+            <img src="recursos/imagenes/logo-jstudio.webp" alt="JStudio" height="40">
+        </a>
+        <button class="cabecera__boton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal" hidden>
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="cabecera__menu" id="menu-principal" aria-label="Principal">
+            <a href="#nosotros">Nosotros</a>
+            <a href="#trabajos">Trabajos</a>
+            <a href="#resenas">Reseñas</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- PORTADA: logo (video) a la derecha difuminado con el fondo -->
+        <section class="portada" id="inicio">
+
+            <div class="portada__texto">
+
+                <div class="marca" id="marca" role="img" aria-label="JSTUDIO"
+                    data-texto="JSTUDIO" data-peso="700" data-tamano="150"
+                    data-largo-raya="4" data-hueco-raya="2" data-specks="15" data-revelar="letra">
+                    <canvas></canvas>
+                </div>
+
+                <p class="portada__etiqueta">Cartelería personalizada</p>
+                <h1>¿Tenes una idea?</h1>
+                <h3>¡Nosotros la hacemos realidad!</h3>
+                <p class="portada__bajada">Diseñamos y realizamos carteles personalizados según el espacio, la marca y el estilo que estés buscando.</p>
+
+                <div class="portada__botones">
+                    <a class="boton boton--principal"
+                        href="https://wa.me/5493517551648?text=Hola%20JStudio%2C%20quiero%20pedir%20un%20presupuesto%20de%20cartel."
+                        target="_blank" rel="noopener">
+                        Escribinos por WhatsApp
+                    </a>
+                    <a class="boton boton--secundario" href="#trabajos">Ver trabajos</a>
+                </div>
+            </div>
+
+            <div class="portada__video" aria-hidden="true">
+                <!-- autoplay + muted + loop + playsinline: necesarios para que el video
+                    arranque solo (los navegadores bloquean el autoplay con sonido) -->
+                <video autoplay muted loop playsinline poster="recursos/imagenes/logo3D.webp">
+                    <source src="recursos/imagenes/logo3D.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </section>
+        <!-- NOSOTROS -->
+        <section class="nosotros" id="nosotros">
+            <div class="nosotros__texto">
+                <p class="etiqueta">Nosotros</p>
+                    <h2>Diseño y producción de carteles a medida</h2>
+                <p>
+                Somos JStudio, un emprendimiento de Córdoba dedicado a diseñar y fabricar
+                cartelería personalizada. Trabajamos con locales, consultorios, oficinas y
+                emprendimientos que quieren que su marca se vea y se reconozca.
+                </p>
+                <p>
+                Cada proyecto parte de una idea: estudiamos el espacio, la marca y el estilo
+                que buscás, y lo convertimos en un cartel con volumen, luz y terminación a medida.
+                </p>
+            </div>
+
+            <ul class="nosotros__lista bento">
+                <li>
+                    <strong>Diseñamos</strong>
+                    <span>Pensamos cada cartel según tu espacio y tu marca.</span>
+                </li>
+                <li>
+                    <strong>Fabricamos</strong>
+                    <span>Polifan, acrílico, LED, retroiluminación y neón.</span>
+                </li>
+                <li>
+                    <strong>Instalamos</strong>
+                    <span>Lo dejamos colocado y funcionando, en fachadas e interiores.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- TRABAJOS: 1) el cartel solo (abanico de cartas)-->
+        <section class="trabajos" id="trabajos">
+            <header class="trabajos__intro">
+                <p class="etiqueta">Trabajos realizados</p>
+                <h2>Del taller a tu fachada</h2>
+            </header>
+
+            <!-- 1) Cartel solo -->
+            <div class="trabajos__bloque">
+                <div class="trabajos__titulo">
+                    <h3>El cartel</h3>
+                    <p>Cada pieza terminada, antes de instalarla. Pasá el mouse (o tocá) para abrir el mazo.</p>
+                </div>
+
+                <div class="cartas" id="cartas" tabindex="0" aria-label="Carteles terminados">
+                    <figure class="carta" style="--o:-2.5">
+                        <img src="recursos/imagenes/cartel-muta.webp" alt="Cartel de polifan con letras de la marca Muta" width="768" height="1024" loading="lazy">
+                        <figcaption>Polifan</figcaption>
+                    </figure>
+                    <figure class="carta" style="--o:-1.5">
+                        <img src="recursos/imagenes/cartel-rc.webp" alt="Cartel de polifan retroiluminado con luz cálida" width="765" height="1024" loading="lazy">
+                        <figcaption>Polifan retroiluminado</figcaption>
+                    </figure>
+                    <figure class="carta" style="--o:-0.5">
+                        <img src="recursos/imagenes/cartel-flecha.webp" alt="Cartel de acrílico blanco con iluminación LED fría sobre pared amarilla" width="765" height="1024" loading="lazy">
+                        <figcaption>Acrílico blanco + LED</figcaption>
+                    </figure>
+                    <figure class="carta" style="--o:0.5">
+                        <img src="recursos/imagenes/interior-pasteleria.webp" alt="Letras de La Pastelería con halo de luz cálida sobre la pared" width="768" height="1024" loading="lazy">
+                        <figcaption>Retroiluminado luz cálida</figcaption>
+                    </figure>
+                    <figure class="carta" style="--o:1.5">
+                        <img src="recursos/imagenes/cartel-sette.webp" alt="Letras negras de Sette sobre una puerta de madera" width="1200" height="1600" loading="lazy">
+                        <figcaption>Polifan</figcaption>
+                    </figure>
+                    <figure class="carta" style="--o:2.5">
+                        <img src="recursos/imagenes/pizarra-sette.webp" alt="Pizarra de acrílico con vinilo para señalética" width="1200" height="1600" loading="lazy">
+                        <figcaption>Acrílico con vinilo</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- 2) Cartel instalado -->
+            <div class="trabajos__bloque">
+                <div class="trabajos__titulo">
+                    <h3>Instalado en el local</h3>
+                    <p>Así se ve ya colocado, en fachadas e interiores reales.</p>
+                </div>
+
+                <div class="acordeon" id="acordeon">
+                    <article class="acordeon__panel is-active" tabindex="0">
+                        <img src="recursos/imagenes/local-pasteleria.webp" alt="Fachada de La Pastelería con el cartel retroiluminado al atardecer" width="720" height="1280" loading="lazy">
+                        <div class="acordeon__texto"><strong>La Pastelería</strong><span>Retroiluminado exterior</span></div>
+                    </article>
+                    <article class="acordeon__panel" tabindex="0">
+                        <img src="recursos/imagenes/insta-korper.webp" alt="Pastillas luminosas de varias marcas sobre una vereda de noche" width="1200" height="1600" loading="lazy">
+                        <div class="acordeon__texto"><strong>Körper</strong><span>Pastillas luminosas</span></div>
+                    </article>
+                    <article class="acordeon__panel" tabindex="0">
+                        <img src="recursos/imagenes/cartel-entrada-sette.webp" alt="Entrada de Sette con señalética de acrílico y cartel de polifan" width="1200" height="1600" loading="lazy">
+                        <div class="acordeon__texto"><strong>Sette</strong><span>Acrílico con vinilo + polifan</span></div>
+                    </article>
+                    <article class="acordeon__panel" tabindex="0">
+                        <img src="recursos/imagenes/insta-pasteleria.webp" alt="Esquina de La Pastelería con cartel de polifan durante el día" width="768" height="1024" loading="lazy">
+                        <div class="acordeon__texto"><strong>La Pastelería</strong><span>Polifan de día</span></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEÑAS: carrusel en movimiento + formulario -->
+        <section class="resenas" id="resenas">
+            <header class="resenas__intro">
+                <p class="etiqueta">Reseñas</p>
+                <h2>Lo que dicen nuestros clientes</h2>
+            </header>
+
+            <p class="resenas__vacio" id="resenas-vacio">Todavía no hay reseñas. ¡Sé el primero en contarnos tu experiencia!</p>
+            <div class="resenas__carrusel" id="resenas-carrusel" aria-label="Reseñas de clientes" hidden></div>
+
+            <form class="resenas__form" id="resenas-form" novalidate>
+                <h3>Dejá tu opinión</h3>
+
+                <div class="resenas__campo resenas__campo--puntaje">
+                    <span class="resenas__label">Tu puntuación</span>
+                    <div id="resenas-puntaje"></div>
+                </div>
+
+                <div class="resenas__campo">
+                    <label class="resenas__label" for="resenas-nombre">Nombre</label>
+                    <input id="resenas-nombre" name="nombre" type="text" maxlength="40" autocomplete="name" required>
+                </div>
+
+                <div class="resenas__campo">
+                    <label class="resenas__label" for="resenas-comentario">Tu experiencia</label>
+                    <textarea id="resenas-comentario" name="comentario" rows="4" maxlength="280" required></textarea>
+                    <small class="resenas__contador" id="resenas-contador">0 / 280</small>
+                </div>
+
+                <div class="resenas__trampa" aria-hidden="true">
+                    <label>No completar este campo <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+                </div>
+
+                <button class="boton boton--principal" type="submit">Publicar reseña</button>
+                <p class="resenas__estado" id="resenas-estado" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+        <!-- CONTACTO -->
+    <section class="contacto" id="contacto">
+        <div class="contacto__texto">
+            <p class="etiqueta">Contacto</p>
+            <h2>Contanos tu idea</h2>
+            <p>
+                Atendemos de forma virtual: escribinos por WhatsApp o Instagram y coordinamos.
+                Cuando se concreta una cita, vamos hasta tu local para hacer el diseño en el lugar.
+            </p>
+            <a class="boton boton--principal"
+                href="https://wa.me/5493517551648?text=Hola%20JStudio%2C%20quiero%20pedir%20un%20presupuesto%20de%20cartel."
+                target="_blank" rel="noopener">
+                Escribinos por WhatsApp
+            </a>
+        </div>
+
+        <ul class="contacto__lista bento">
+            <li>
+                <strong>Instagram</strong>
+                <a href="https://www.instagram.com/jstudio.j" target="_blank" rel="noopener">@jstudio.j</a>
+            </li>
+            <li>
+                <strong>Horarios de atención</strong>
+                <span>Lunes a lunes, de 9:00 a 20:00 h</span>
+            </li>
+            <li>
+                <strong>Ubicación</strong>
+                <span>Av. Colón 1070, Córdoba</span>
+            </li>
+            <li>
+                <strong>Modalidad</strong>
+                <span>Consultas virtuales. Las citas son presenciales, en tu local.</span>
+            </li>
+        </ul>
+    </section>
+
+    <footer class="pie">
+        <p>&copy; 2026 JStudio. Cartelería personalizada e instalación.</p>
+    </footer>
+    <!-- Botón flotante de WhatsApp (esquina inferior izquierda, siempre visible) -->
+    <a class="wsp-flotante"
+        href="https://wa.me/5493517551648?text=Hola%20JStudio%2C%20quiero%20pedir%20un%20presupuesto%20de%20cartel."
+        target="_blank" rel="noopener" aria-label="Enviar un mensaje por WhatsApp a JStudio">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script src="recursos/js/main.js" defer></script>
+    <script src="recursos/js/config.js" defer></script>
+    <script src="recursos/js/peek-rating.js" defer></script>
+    <script src="recursos/js/resenas.js" defer></script>
+</body>
+</html>
