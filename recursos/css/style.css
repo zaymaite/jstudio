@@ -31,7 +31,7 @@ img, video { max-width: 100%; display: block; }
 /* ===== Header ===== */
 .cabecera {
     position: relative;
-    z-index: 2;              /* siempre por encima del video */
+    z-index: 2;              
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,11 +40,9 @@ img, video { max-width: 100%; display: block; }
     padding: 1rem 1.5rem;
 }
 
-/* El logo es negro sobre blanco: lo invertimos y "screen" hace desaparecer el fondo negro */
+
 .cabecera__logo { display: block; background: var(--fondo); }
 .cabecera__logo img {
-    /*filter: invert(1);
-    mix-blend-mode: screen;*/
 }
 
 .cabecera__menu { display: flex; gap: 1.5rem; }
@@ -58,7 +56,7 @@ img, video { max-width: 100%; display: block; }
 }
 .cabecera__menu a:hover { color: var(--acento); }
 
-/* ===== Portada: texto a la izquierda, logo a la derecha ===== */
+/* ===== Portada:===== */
 .portada {
     position: relative;
     display: grid;
@@ -74,7 +72,7 @@ img, video { max-width: 100%; display: block; }
 
 .portada__texto { position: relative; z-index: 1; }
 
-/* ===== Marca "JSTUDIO" (efecto Tech Text, dibujado en un <canvas>) ===== */
+/* ===== Marca "JSTUDIO" (efecto Tech Text) ===== */
 .marca {
     width: 100%;
     height: clamp(120px, 15vw, 170px);
@@ -85,10 +83,10 @@ img, video { max-width: 100%; display: block; }
     display: block;
     width: 100%;
     height: 100%;
-    touch-action: pan-y;      /* en celular el scroll vertical sigue funcionando sobre el texto */
+    touch-action: pan-y;     
 }
 
-/* Rayita de acento + frase corta, como en la referencia */
+
 .portada__etiqueta {
     display: inline-block;
     margin: 0 0 0.75rem;
@@ -113,17 +111,14 @@ img, video { max-width: 100%; display: block; }
 
 .portada__botones { display: flex; flex-wrap: wrap; gap: 1rem; }
 
-/* ===== Video difuminado con el fondo =====
-   1) invert(1): el video es logo negro sobre blanco -> pasa a logo claro sobre negro
-   2) mix-blend-mode: screen: el negro se funde con el fondo de la página
-   3) mask-image: los bordes se desvanecen de forma gradual (nunca se ve el recuadro)
-   4) blur + opacity: suavizan el logo para que no compita con el texto */
+/* ===== Video difuminado con el fondo =====*/
+
 .portada__video {
     position: relative;
     height: 100%;
     min-height: 420px;
     overflow: hidden;
-    background: var(--fondo);        /* necesario para que el "screen" se funda con el fondo */
+    background: var(--fondo);       
     -webkit-mask-image: radial-gradient(ellipse 65% 60% at 55% 50%, #000 25%, transparent 75%);
             mask-image: radial-gradient(ellipse 65% 60% at 55% 50%, #000 25%, transparent 75%);
 }
@@ -135,10 +130,6 @@ img, video { max-width: 100%; display: block; }
     transform: scale(1.7); 
     filter: contrast(1.25) brightness(1.04) blur(1.5px);
     mix-blend-mode: multiply;
-    /* el logo ocupa poco del cuadro: lo agrandamos 
-    filter: invert(1) blur(1.5px); 
-    mix-blend-mode: screen;
-    opacity: 0.85; */
 }
 
 /* ===== Botones ===== */
@@ -171,7 +162,7 @@ img, video { max-width: 100%; display: block; }
     color: var(--texto-suave);
 }
 
-/* ===== Celular: 1 columna (el logo queda detrás/arriba, texto abajo) ===== */
+/* ===== Celular:===== */
 @media (max-width: 800px) {
     .portada {
         grid-template-columns: 1fr;
@@ -179,7 +170,7 @@ img, video { max-width: 100%; display: block; }
         min-height: auto;
     }
     .portada__video {
-        order: -1;                       /* el logo va arriba en celular */
+        order: -1;                      
         height: 40vh;
         min-height: 260px;
         -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000 25%, transparent 78%);
@@ -187,9 +178,7 @@ img, video { max-width: 100%; display: block; }
     }
 }
 
-/* =====================================================
-TRABAJOS
-   ===================================================== */
+/* TRABAJOS */
 .trabajos {
     max-width: var(--ancho-max);
     margin: 0 auto;
@@ -219,15 +208,12 @@ TRABAJOS
 .trabajos__titulo h3 { font-size: 1.5rem; margin: 0 0 0.25rem; }
 .trabajos__titulo p { margin: 0; color: var(--texto-suave); }
 
-/* ===== 1) Abanico de cartas =====
-Cada carta tiene --o (posición respecto del centro: -2.5 ... 2.5).
-Cerrado: poco desplazamiento y poco giro -> mazo abanicado.
-   Abierto (hover / foco / toque): más separación y giro. */
+/* ===== Abanico de cartas ===== */
 .cartas {
     --ancho-carta: 250px;
-    --dx: 26px;       /* separación horizontal entre cartas */
-    --giro: 4deg;     /* giro por posición */
-    --arco: 9px;      /* cuánto "cae" el abanico en los extremos */
+    --dx: 26px;      
+    --giro: 4deg;    
+    --arco: 9px;      
 
     position: relative;
     height: 500px;
@@ -245,13 +231,13 @@ Cerrado: poco desplazamiento y poco giro -> mazo abanicado.
 .carta {
     position: absolute;
     left: 50%;
-    top: 50px;              /* deja aire arriba para cuando una carta se levanta */
+    top: 50px;           
     width: var(--ancho-carta);
     aspect-ratio: 3 / 4;
     margin: 0 0 0 calc(var(--ancho-carta) / -2);
     border-radius: 14px;
     overflow: hidden;
-    background: #e9e9e9;    /* CAMBIÓ: era #161616 */
+    background: #e9e9e9;    
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
     transform-origin: 50% 120%;
     transform:
@@ -276,7 +262,6 @@ Cerrado: poco desplazamiento y poco giro -> mazo abanicado.
     color: #fff;
 }
 
-/* La carta señalada se levanta por encima del resto (solo con el mazo abierto) */
 .cartas:hover .carta:hover,
 .cartas.is-open .carta:hover {
     z-index: 10;
@@ -288,8 +273,7 @@ Cerrado: poco desplazamiento y poco giro -> mazo abanicado.
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);   /* CAMBIÓ: era 0.75 */
 }
 
-/* ===== 2) Acordeón de fotos instaladas =====
-   El panel activo ocupa ~52% del ancho (--ocupa); el resto se reparte lo que queda. */
+/* ===== Acordeón de fotos instaladas ===== */
 .acordeon {
     --ocupa: 0.52;
     --n: 4;
@@ -364,9 +348,7 @@ Cerrado: poco desplazamiento y poco giro -> mazo abanicado.
     .carta, .acordeon__panel, .acordeon__panel img, .acordeon__texto { transition: none; }
 }
 
-/* =====================================================
-NOSOTROS
-   ===================================================== */
+/* NOSOTROS */
 .nosotros {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -398,10 +380,8 @@ NOSOTROS
     gap: 1rem;
 }
 
-/* ===== Efecto "Magic Bento" (Nosotros y Contacto: cualquier lista con la clase "bento") =====
-   Las variables --glow-x / --glow-y / --glow-intensity las actualiza main.js según el mouse. */
 .bento li {
-    --glow-color: 200, 30, 90;      /* rgb del acento (rosa del catálogo). Probá 132, 0, 255 para violeta */
+    --glow-color: 200, 30, 90;      
     --glow-x: 50%;
     --glow-y: 50%;
     --glow-intensity: 0;
@@ -434,7 +414,7 @@ NOSOTROS
     pointer-events: none;
 }
 
-/* Border glow: el borde se ilumina cerca del mouse (truco de máscara: solo se ve el aro) */
+/* Border glow: el borde se ilumina cerca del mouse */
 .bento li::after {
     content: "";
     position: absolute;
@@ -451,7 +431,7 @@ NOSOTROS
     pointer-events: none;
 }
 
-/* Estrellas (partículas) y onda del click: las crea main.js */
+/* Estrellas (partículas) y onda del click */
 .estrella {
     position: absolute;
     width: 4px;
@@ -482,9 +462,7 @@ NOSOTROS
     }
 }
 
-/* =====================================================
-   CONTACTO
-   ===================================================== */
+/* CONTACTO */
 .contacto {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -549,12 +527,10 @@ NOSOTROS
     }
 }
 
-/* =====================================================
-   RESEÑAS
-   ===================================================== */
+/*   RESEÑAS */
 .resenas {
     padding: 4rem 0;
-    overflow: hidden;           /* el carrusel es de borde a borde: nada se sale de la página */
+    overflow: hidden;         
 }
 
 .resenas__intro {
@@ -576,8 +552,7 @@ NOSOTROS
     color: var(--texto-suave);
 }
 
-/* ===== Carrusel en movimiento (infinito) =====
-   main.js/resenas.js calcula --ancho-grupo y --duracion. Se frena al pasar el mouse o enfocar. */
+/* ===== Carrusel en movimiento (infinito) ===== */
 .resenas__carrusel {
     position: relative;
     padding: 0.75rem 0 1.5rem;
@@ -605,7 +580,7 @@ NOSOTROS
 .resenas__grupo {
     display: flex;
     gap: 1.25rem;
-    padding-right: 1.25rem;     /* el hueco final cuenta dentro del grupo: el loop queda parejo */
+    padding-right: 1.25rem;    
 }
 
 .resena {
@@ -654,7 +629,7 @@ NOSOTROS
 .resena__datos strong { overflow-wrap: anywhere; }
 .resena__datos small { color: var(--texto-suave); }
 
-/* Si el usuario prefiere menos movimiento: sin animación, se desliza con el dedo */
+
 .resenas__carrusel.is-estatico {
     overflow-x: auto;
     -webkit-mask-image: none;
@@ -679,7 +654,7 @@ NOSOTROS
 .resenas__form h3 { font-size: 1.5rem; margin: 0 0 1.25rem; }
 
 .resenas__campo { display: flex; flex-direction: column; margin-bottom: 1.1rem; }
-.resenas__campo--puntaje .peek { margin-top: 1.9rem; }   /* aire para el tooltip, debajo de la etiqueta */
+.resenas__campo--puntaje .peek { margin-top: 1.9rem; }   
 
 .resenas__label {
     margin-bottom: 0.4rem;
@@ -719,7 +694,7 @@ NOSOTROS
 .resenas__estado.is-ok { color: #1a7f4b; }
 .resenas__estado.is-error { color: var(--acento-oscuro); }
 
-/* ===== PeekRating (estrellas) ===== */
+
 .peek { display: inline-flex; gap: 6px; }
 
 .peek__celda { position: relative; display: inline-flex; }
@@ -764,7 +739,6 @@ NOSOTROS
     z-index: 2;
 }
 
-/* flechita del tooltip */
 .peek__tip::after {
     content: "";
     position: absolute;
@@ -792,13 +766,12 @@ NOSOTROS
     .resena, .peek__item, .peek__tip { transition: none; }
 }
 
-/* ===== Menú en celular: los links pasan a otra línea en vez de ensanchar la página ===== */
+/* ===== Menú en celular ===== */
 @media (max-width: 800px) {
     .cabecera { flex-wrap: wrap; gap: 0.5rem 1rem; }
     .cabecera__menu { flex-wrap: wrap; gap: 0.4rem 1rem; }
 }
 
-/* ===== Botón flotante de WhatsApp (esquina inferior izquierda) ===== */
 .wsp-flotante {
     position: fixed;
     left: max(1rem, env(safe-area-inset-left, 0px));
@@ -819,7 +792,7 @@ NOSOTROS
 
 @media (prefers-reduced-motion: reduce) { .wsp-flotante { transition: none; } }
 
-/* Campo trampa anti-bots (fuera de pantalla, no se ve ni se enfoca) */
+
 .resenas__trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ===== Menú hamburguesa (celular) ===== */
