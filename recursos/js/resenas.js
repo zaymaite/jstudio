@@ -58,7 +58,12 @@
                 headers: encabezados({ 'Content-Type': 'application/json', Prefer: 'return=minimal' }),
                 body: JSON.stringify({ nombre: resena.nombre, puntaje: resena.puntaje, texto: resena.texto })
             }).then(function (r) {
-                if (!r.ok) throw new Error('HTTP ' + r.status);
+                if (r.ok) return;
+                    return r.json().catch(function () { return {}; }).then(function (e) {
+                    var err = new Error('HTTP ' + r.status);
+                    err.codigo = (e && e.message) || '';
+                    throw err;
+                });
             });
         }
     };
@@ -267,14 +272,18 @@
             avisar(moderada && usaServidor
                 ? '¡Gracias por tu opinión! La publicaremos apenas la revisemos.'
                 : '¡Gracias por tu opinión! Ya aparece en el carrusel.', 'ok');
-        }).catch(function () {
-            avisar('No pudimos guardar tu reseña. Probá de nuevo en un rato.', 'error');
+        }).catch(function (err) {
+            if (err && err.codigo === 'palabras_no_permitidas') {
+                avisar('Tu reseña tiene palabras no permitidas. Reformulala y volvé a enviarla.', 'error');
+            } else {
+                avisar('No pudimos guardar tu reseña. Probá de nuevo en un rato.', 'error');
+            }
         }).then(function () {
             boton.disabled = false;
         });
     });
 
-   
+
     var anchoPrevio = window.innerWidth;
     var t;
     window.addEventListener('resize', function () {
