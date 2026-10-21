@@ -1,12 +1,134 @@
 (function () {
-    var cartas = document.getElementById('cartas');
-    if (!cartas) return;
+    var escena = document.getElementById('cartas');
+    if (!escena) return;
 
-    var sinHover = window.matchMedia('(hover: none)').matches;
-    if (sinHover) {
-        cartas.addEventListener('click', function () {
-            cartas.classList.toggle('is-open');
+    var cartas = Array.prototype.slice.call(escena.querySelectorAll('.carta'));
+    var n = cartas.length;
+    if (!n) return;
+
+
+    var AJUSTES = {
+        ancho: 200,            
+        separacion: 85,        
+        giro: 10,              
+        empuje: 160,            
+        escala: 1.06,           
+        retardoEntrada: 0.2,    
+        escalonEntrada: 0.06,   
+        retardoEmpuje: 0.05     
+    };
+    var GIROS = [10, 5, -3, -8, 2, -10];   
+
+    var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var activa = -1;       
+    var entrado = false;    
+    var lista = false;      
+    var anchoEscena = 0;
+    var ancho = AJUSTES.ancho, sep = AJUSTES.separacion, empuje = AJUSTES.empuje;
+
+    function medir() {
+        var W = escena.clientWidth;
+        var margen = 16;
+        anchoEscena = W;
+
+        ancho = Math.max(130, Math.min(AJUSTES.ancho, W * 0.40));
+        empuje = Math.min(AJUSTES.empuje, ancho * 0.8);
+        sep = (W - 2 * margen - ancho - 2 * empuje) / (n - 1);
+
+        if (sep >= AJUSTES.separacion) {
+            sep = AJUSTES.separacion;
+        } else if (sep < 14) {
+            sep = 14;
+            empuje = Math.max(ancho * 0.25, (W - 2 * margen - ancho - sep * (n - 1)) / 2);
+        }
+
+        escena.style.setProperty('--ancho-carta', ancho.toFixed(0) + 'px');
+        escena.style.height = Math.round(ancho * 4 / 3 + 70) + 'px';
+    }
+
+    function xBase(i) { return (i - (n - 1) / 2) * sep; }
+    function giroBase(i) { return GIROS[i % GIROS.length] * (AJUSTES.giro / 10); }
+
+    function poner(i, dx, giro, esc, retardo) {
+        var c = cartas[i];
+        c.style.transitionDelay = retardo.toFixed(2) + 's';
+        c.style.transform = 'translate(-50%, -50%) translateX(' + dx.toFixed(1) +
+            'px) rotate(' + giro.toFixed(1) + 'deg) scale(' + esc + ')';
+    }
+
+    function aplicar(h, conRetardo) {
+        for (var i = 0; i < n; i++) {
+            var x = xBase(i), g = giroBase(i), esc = 1, r = 0;
+            if (h >= 0) {
+                if (i === h) {
+                    g = 0;
+                    esc = AJUSTES.escala;
+                } else {
+                    x += (i < h) ? -empuje : empuje;
+                    if (conRetardo) r = Math.abs(h - i) * AJUSTES.retardoEmpuje;
+                }
+            }
+            cartas[i].classList.toggle('is-activa', i === h);
+            poner(i, x, g, esc, r);
+        }
+    }
+
+    function activar(h) {
+        if (!lista || h === activa) return;
+        activa = h;
+        aplicar(h, true);
+    }
+
+    function entrada() {
+        entrado = true;
+        for (var i = 0; i < n; i++) {
+            poner(i, xBase(i), giroBase(i), 1, AJUSTES.retardoEntrada + i * AJUSTES.escalonEntrada);
+        }
+        var total = AJUSTES.retardoEntrada + n * AJUSTES.escalonEntrada + 0.6;
+        setTimeout(function () { lista = true; }, reducir ? 0 : total * 1000);
+    }
+
+    cartas.forEach(function (carta, i) {
+        carta.addEventListener('pointerenter', function (e) {
+            if (e.pointerType === 'mouse') activar(i);
         });
+        carta.addEventListener('pointerdown', function (e) {
+            if (e.pointerType !== 'mouse') activar(activa === i ? -1 : i);  
+        });
+        carta.addEventListener('focus', function () { activar(i); });          
+    });
+
+    escena.addEventListener('pointerleave', function (e) {
+        if (e.pointerType === 'mouse') activar(-1);
+    });
+    escena.addEventListener('focusout', function (e) {
+        if (!escena.contains(e.relatedTarget)) activar(-1);
+    });
+    document.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' && !escena.contains(e.target)) activar(-1);
+    });
+
+    medir();
+
+    if ('IntersectionObserver' in window) {
+        var observador = new IntersectionObserver(function (items) {
+            if (items[0].isIntersecting) {
+                observador.disconnect();
+                entrada();
+            }
+        }, { threshold: 0.25 });
+        observador.observe(escena);
+    } else {
+        entrada();
+    }
+
+    if ('ResizeObserver' in window) {
+        new ResizeObserver(function () {
+            if (escena.clientWidth === anchoEscena) return;
+            medir();
+            if (entrado) aplicar(activa, false);
+        }).observe(escena);
     }
 })();
 
